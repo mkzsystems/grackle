@@ -1,0 +1,28 @@
+# pm-framework v1.0
+name: Feature
+description: A new capability, request, or idea.
+title: "[Feature] "
+labels: ["needs-triage"]
+# Org edition: set the "Feature" issue type in the sidebar.
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What the feature is, and the problem it solves.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: How it should work (behavior, UX, API surface).
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What must be true for this to be done.
+    validations:
+      required: false

@@ -1,0 +1,59 @@
+# pm-framework v1.0
+#
+# Path-based PR auto-labeling. Each `component:*` label here must also exist in
+# .github/project.yml. Applied by the `labeler` workflow on pull_request_target; it is
+# advisory (a convenience), NOT a required merge check.
+#
+# Paths follow the package layout in docs/plan.md section 3.1. Syntax is actions/labeler v5.
+
+"component:ci":
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+          - "scripts/**"
+          - "Makefile"
+          - ".golangci.yml"
+          - ".goreleaser.yaml"
+          - "go.mod"
+          - "go.sum"
+
+"component:cli":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "cmd/**"
+          - "internal/cli/**"
+          - "internal/config/**"
+
+"component:task":
+  - changed-files:
+      - any-glob-to-any-file: ["internal/task/**"]
+
+"component:store":
+  - changed-files:
+      - any-glob-to-any-file: ["internal/store/**"]
+
+"component:source":
+  - changed-files:
+      - any-glob-to-any-file: ["internal/source/**"]
+
+"component:sync":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "internal/syncer/**"
+          - "internal/graph/**"
+          - "internal/sched/**"
+          - "internal/dispatch/**"
+
+"component:board":
+  - changed-files:
+      - any-glob-to-any-file: ["internal/board/**"]
+
+"component:mcp":
+  - changed-files:
+      - any-glob-to-any-file: ["internal/mcp/**"]
+
+"component:docs":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "**/*.md"

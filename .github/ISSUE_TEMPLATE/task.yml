@@ -1,0 +1,21 @@
+# pm-framework v1.0
+name: Task
+description: A specific, well-scoped piece of work (incl. docs/chore work).
+title: "[Task] "
+labels: ["needs-triage"]
+# Org edition: set the "Task" issue type in the sidebar.
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: The work to be done, concretely.
+    validations:
+      required: true
+  - type: textarea
+    id: done-when
+    attributes:
+      label: Done when
+      description: The definition of done for this task.
+    validations:
+      required: false
