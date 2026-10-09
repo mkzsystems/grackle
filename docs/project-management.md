@@ -105,4 +105,4 @@ touch `.github/project.yml`. The workflows need the repository secret **`PROJECT
 
 ADRs in `docs/adr/` named `NNNN-slug.md`, each with a `Status` line (`Proposed`, then
 `Accepted (who, date, how)`), pre-1.0; promote to the `rfc` workflow when a public contract
-freezes. ADR-0001 and ADR-0002 were accepted with the work plan (#1).
+freezes. ADR-0001 and ADR-0002 were accepted with the work plan (#28).
