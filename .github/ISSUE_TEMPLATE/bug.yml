@@ -1,0 +1,33 @@
+# pm-framework v1.0
+name: Bug
+description: An unexpected problem or incorrect behavior.
+title: "[Bug] "
+labels: ["needs-triage"]
+# Org edition: set the "Bug" issue type in the sidebar.
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The incorrect behavior you observed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Version, OS, and anything else relevant.
+    validations:
+      required: false

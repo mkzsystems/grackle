@@ -1,0 +1,36 @@
+# Put every newly opened or reopened issue and pull request on the Grackle 1.0 board
+# (orgs/mkzsystems/projects/14). The board's built-in auto-add matched issues only on
+# semblance's board until it was widened by hand, so this workflow is the record of intent:
+# issues AND pull requests. Adding an item that is already on the board is a no-op.
+#
+# Needs the PROJECT_ADMIN_TOKEN secret (Projects v2 cannot be written by the default token).
+# Without it the job logs a notice and succeeds, so Dependabot and fork PRs stay green.
+name: project-add
+
+on:
+  issues:
+    types: [opened, reopened]
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions: {}
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - id: token
+        env:
+          PROJECT_ADMIN_TOKEN: ${{ secrets.PROJECT_ADMIN_TOKEN }}
+        run: |
+          if [ -n "$PROJECT_ADMIN_TOKEN" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::PROJECT_ADMIN_TOKEN is not set; not adding this item to the board."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.token.outputs.present == 'true'
+        uses: actions/add-to-project@v2
+        with:
+          project-url: https://github.com/orgs/mkzsystems/projects/14
+          github-token: ${{ secrets.PROJECT_ADMIN_TOKEN }}

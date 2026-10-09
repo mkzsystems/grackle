@@ -1,0 +1,37 @@
+# pm-framework v1.0
+name: Epic
+description: A large, multi-issue initiative tracked via sub-issues.
+title: "[Epic] "
+labels: ["epic", "needs-triage"]
+# Org edition: also set the "Epic" issue type in the sidebar (types are the source of
+# truth; the `epic` label mirrors it for filtering). Personal edition: the `epic` label
+# IS the mechanism.
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What this initiative delivers, and why it matters now.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is in, and explicitly what is out.
+    validations:
+      required: true
+  - type: textarea
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: How we know the epic is done (the sub-issues that must close).
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Other epics/issues this depends on or blocks.
+    validations:
+      required: false

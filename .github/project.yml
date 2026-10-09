@@ -1,0 +1,148 @@
+# pm-framework v1.0
+#
+# Declarative project-management spec: the single source of truth for this repo's labels,
+# phase milestones, (org) issue-type taxonomy, and the Projects v2 board's custom fields.
+# Reconciled by `scripts/project-sync.sh` (locally by a maintainer, or by the `project-sync`
+# workflow once PROJECT_ADMIN_TOKEN is set).
+#
+# The reconciler is NON-DESTRUCTIVE: it creates/updates/renames entries listed here but never
+# deletes labels/milestones that are absent. See the pm-framework hub for the model.
+
+framework_version: "1.0"
+
+mode: "org"
+
+labels:
+  # -- Component labels (path-routed by .github/labeler.yml; mirror commit scopes) ---------
+  # The packages of docs/plan.md section 3.1.
+  - name: "component:ci"
+    color: "1d76db"
+    description: "Component: CI, build, release and repo automation"
+  - name: "component:cli"
+    color: "1d76db"
+    description: "Component: cmd/grackle, internal/cli, internal/config"
+  - name: "component:task"
+    color: "1d76db"
+    description: "Component: internal/task (the model, label grammar, state derivation)"
+  - name: "component:store"
+    color: "1d76db"
+    description: "Component: internal/store (SQLite, migrations, queries)"
+  - name: "component:source"
+    color: "1d76db"
+    description: "Component: internal/source and its GitHub adapter"
+  - name: "component:sync"
+    color: "1d76db"
+    description: "Component: internal/syncer, and the graph and scheduler from M2.0"
+  - name: "component:board"
+    color: "1d76db"
+    description: "Component: internal/board (the web UI and the JSON API)"
+  - name: "component:mcp"
+    color: "1d76db"
+    description: "Component: the MCP server (M3.0)"
+  - name: "component:docs"
+    color: "1d76db"
+    description: "Component: documentation"
+
+  # -- Grackle's own task metadata (docs/DESIGN.md, ADR-0002) ------------------------------
+  # Grackle reads these labels from every repo it syncs; this repo declares them so its own
+  # issues carry them from the start. A closed issue is Done, so there is no state:done.
+  - name: "state:needs-spec"
+    color: "d4c5f9"
+    description: "Grackle: not enough detail for anyone to start"
+  - name: "state:agent-ready"
+    color: "0e8a16"
+    description: "Grackle: spec, acceptance criteria and repo context are complete"
+  - name: "state:in-flight"
+    color: "fbca04"
+    description: "Grackle: a session or John is working on it"
+  - name: "state:needs-review"
+    color: "5319e7"
+    description: "Grackle: PR open, waiting on review"
+  - name: "size:S"
+    color: "c2e0c6"
+    description: "Grackle: about half a day"
+  - name: "size:M"
+    color: "7bcf8f"
+    description: "Grackle: about a day"
+  - name: "size:L"
+    color: "2da44e"
+    description: "Grackle: about three days"
+
+  # -- RFC workflow (reserved for public contracts; see the spec) --------------------------
+  - name: "rfc"
+    color: "6f42c1"
+    description: "Request for comments on a public contract"
+  - name: "status: under-discussion"
+    color: "fbca04"
+    description: "RFC: open for discussion"
+  - name: "status: accepted"
+    color: "0e8a16"
+    description: "RFC: accepted, awaiting implementation"
+  - name: "status: rejected"
+    color: "d93f0b"
+    description: "RFC: rejected"
+  - name: "status: implemented"
+    color: "5319e7"
+    description: "RFC: implemented"
+
+  # -- Meta labels --------------------------------------------------------------------------
+  - name: "epic"
+    color: "3e4b9e"
+    description: "Tracks a multi-issue initiative via sub-issues"
+  - name: "backlog"
+    color: "cccccc"
+    description: "Not yet scheduled to a milestone"
+  - name: "needs-triage"
+    color: "e99695"
+    description: "Awaiting triage (kind/milestone/component)"
+  - name: "needs-info"
+    color: "d876e3"
+    description: "Waiting on more information from the reporter"
+  - name: "needs-decision"
+    color: "fbca04"
+    description: "Blocked on a decision (usually an ADR)"
+  - name: "blocked"
+    color: "b60205"
+    description: "Blocked by another issue or external factor"
+  - name: "no-changelog"
+    color: "ededed"
+    description: "Exempt this PR from the CHANGELOG requirement"
+  - name: "release"
+    color: "0e8a16"
+    description: "Release engineering & publishing"
+
+issue_types:
+  - name: "Epic"
+    description: "A large, multi-issue initiative tracked via sub-issues"
+  - name: "Feature"
+    description: "A new capability, request, or idea"
+  - name: "Task"
+    description: "A specific, well-scoped piece of work (incl. docs/chore work)"
+  - name: "Spike"
+    description: "A time-boxed investigation that informs follow-on work"
+  - name: "Bug"
+    description: "An unexpected problem or incorrect behavior"
+
+# Phase milestones = the three MVP steps of docs/DESIGN.md (docs/plan.md section 1).
+milestones:
+  - title: "M1.0 Sync and Board"
+    description: "grackle init/sync/serve/ls: every configured org synced into SQLite, one board with a readiness state per task, a JSON API. Release v0.1.0. Task spec: docs/tasks/01-sync-and-board.md."
+  - title: "M2.0 Dependencies and Scheduler"
+    description: "blocked-by labels across repos, the dependency graph and critical path per milestone, the ranked queue of what can start now, the capacity forecast, the first label writes. Release v0.2.0."
+  - title: "M3.0 MCP Server and Dispatch"
+    description: "An MCP server so a Claude Code session can ask for, claim and report on its task; dispatch to a local worktree; PR tracking into Needs review. Release v0.3.0."
+
+project:
+  owner: "mkzsystems"
+  number: 14                # https://github.com/orgs/mkzsystems/projects/14
+  title: "Grackle 1.0"
+  fields:
+    - name: "Effort"
+      type: "single_select"
+      options: ["XS", "S", "M", "L", "XL"]
+    - name: "Order"
+      type: "number"
+    - name: "Start Date"
+      type: "date"
+    - name: "Target Date"
+      type: "date"
