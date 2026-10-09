@@ -1,6 +1,6 @@
 # ADR-0001: A hand-written GraphQL client, with recorded exchanges as fixtures
 
-- Status: Proposed (2026-10-09)
+- Status: Accepted (John, 2026-10-09, approving the work plan in #1)
 - Deciders: John McKenzie
 
 ## Context

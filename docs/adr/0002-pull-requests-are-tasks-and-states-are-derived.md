@@ -1,6 +1,6 @@
 # ADR-0002: Pull requests are tasks, and a task's state is derived
 
-- Status: Proposed (2026-10-09)
+- Status: Accepted (John, 2026-10-09, approving the work plan in #1)
 - Deciders: John McKenzie
 
 ## Context
