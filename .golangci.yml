@@ -1,0 +1,105 @@
+version: "2"
+
+run:
+  timeout: 5m
+
+# Report every violation: the defaults hide repeats, which hides a broken boundary in the next
+# package that crosses it.
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  default: standard
+  enable:
+    - bodyclose
+    - copyloopvar
+    - depguard
+    - errorlint
+    - misspell
+    - noctx
+    - sqlclosecheck
+    - unconvert
+    - unparam
+  settings:
+    errcheck:
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
+    # The import rules of docs/plan.md section 3.1. Each rule names the files it governs and the
+    # packages they may not import.
+    depguard:
+      rules:
+        task-is-a-leaf:
+          list-mode: lax
+          files:
+            - "**/internal/task/**"
+          deny:
+            - pkg: github.com/mkzsystems/grackle/internal
+              desc: "internal/task is the shared model and imports nothing under internal/ (docs/plan.md 3.1)"
+        store-depends-on-task-only:
+          list-mode: lax
+          files:
+            - "**/internal/store/**"
+          deny:
+            - pkg: github.com/mkzsystems/grackle/internal/config
+              desc: "internal/store imports only internal/task (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/source
+              desc: "internal/store imports only internal/task (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/syncer
+              desc: "internal/store imports only internal/task (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/board
+              desc: "internal/store imports only internal/task (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/cli
+              desc: "internal/store imports only internal/task (docs/plan.md 3.1)"
+        source-never-imports-store:
+          list-mode: lax
+          files:
+            - "**/internal/source/**"
+          deny:
+            - pkg: github.com/mkzsystems/grackle/internal/store
+              desc: "a source yields tasks; the syncer stores them (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/syncer
+              desc: "a source does not know about sync runs (docs/plan.md 3.1)"
+        only-syncer-and-cli-use-the-github-adapter:
+          list-mode: lax
+          files:
+            - $all
+            - "!**/internal/source/github/**"
+            - "!**/internal/syncer/**"
+            - "!**/internal/cli/**"
+          deny:
+            - pkg: github.com/mkzsystems/grackle/internal/source/github
+              desc: "only internal/syncer and internal/cli import the GitHub adapter (docs/plan.md 3.1)"
+        board-reads-the-store-only:
+          list-mode: lax
+          files:
+            - "**/internal/board/**"
+          deny:
+            - pkg: github.com/mkzsystems/grackle/internal/source
+              desc: "the board reads the store; it never talks to a source (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/syncer
+              desc: "the board is given a store and an address, not a syncer (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/config
+              desc: "the board is given a store and an address, not the config (docs/plan.md 3.1)"
+            - pkg: github.com/mkzsystems/grackle/internal/cli
+              desc: "the board never imports the CLI (docs/plan.md 3.1)"
+        no-cgo-sqlite:
+          list-mode: lax
+          files:
+            - $all
+          deny:
+            - pkg: github.com/mattn/go-sqlite3
+              desc: "grackle is cgo-free; use modernc.org/sqlite (CLAUDE.md)"
+  exclusions:
+    generated: lax
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/mkzsystems/grackle

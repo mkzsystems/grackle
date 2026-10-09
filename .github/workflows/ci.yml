@@ -1,0 +1,63 @@
+# Every check `make check` runs locally (docs/plan.md section 5), plus `make build test` on macOS.
+# The Makefile is the source of truth for tool versions; the lint job reads its golangci-lint
+# version from there.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: make fmt-check mod-check vet build cgo-check test
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: make build test
+      - run: .bin/grackle version
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - id: pin
+        run: echo "golangci-lint=$(make -s print-GOLANGCI_LINT_VERSION)" >> "$GITHUB_OUTPUT"
+      - uses: golangci/golangci-lint-action@v9
+        with:
+          version: ${{ steps.pin.outputs.golangci-lint }}
+
+  vuln:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: make vuln
+
+  generate-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: make generate-check
