@@ -1,6 +1,6 @@
 # Grackle: notes for Claude Code sessions
 
-Read `docs/DESIGN.md` first. Each task spec in `docs/tasks/` is self-contained: context, acceptance criteria, constraints, out-of-scope. Work the lowest-numbered unfinished task unless told otherwise.
+Read `docs/DESIGN.md` first, then `docs/plan.md` (milestones, the issue index, the implementation decisions) and `docs/adr/`. Each task spec in `docs/tasks/` is self-contained: context, acceptance criteria, constraints, out-of-scope. Work the lowest-numbered unfinished task unless told otherwise.
 
 ## Conventions
 
