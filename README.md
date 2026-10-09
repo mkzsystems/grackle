@@ -10,8 +10,6 @@ Design complete, implementation not started. See:
 
 - [`docs/DESIGN.md`](docs/DESIGN.md), the design doc and settled decisions
 - [`docs/tasks/`](docs/tasks/), agent-ready specs for each MVP step, in order
-- [`docs/plan.md`](docs/plan.md), the work plan: milestones, the issue index, CI gates, tests and the decisions to confirm
-- [`docs/adr/`](docs/adr/), decision records for choices the design doc leaves open
 
 ## Planned shape
 
