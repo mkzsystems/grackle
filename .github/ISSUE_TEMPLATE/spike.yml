@@ -1,0 +1,29 @@
+# pm-framework v1.0
+name: Spike
+description: A time-boxed investigation that informs follow-on work.
+title: "[Spike] "
+labels: ["needs-triage"]
+# Org edition: set the "Spike" issue type in the sidebar. A spike produces a decision or
+# follow-on issues, not a shipped feature — close it once its question is answered.
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: The specific question this spike answers.
+    validations:
+      required: true
+  - type: input
+    id: timebox
+    attributes:
+      label: Timebox
+      description: How much time is allotted (e.g. "2 days").
+    validations:
+      required: false
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: Deliverable
+      description: The decision record and/or follow-on issues this produces.
+    validations:
+      required: true

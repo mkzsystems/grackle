@@ -1,0 +1,40 @@
+# pm-framework v1.0
+name: Project sync
+
+# Reconciles GitHub PM objects (labels, milestones, and — org edition — issue-type and
+# board-field validation) from .github/project.yml via scripts/project-sync.sh. The
+# script is non-destructive. Org issue types and Projects v2 cannot be written by the
+# default token, so a maintainer PAT is provided as PROJECT_ADMIN_TOKEN; without it the
+# run degrades to a warn-only validation pass.
+
+on:
+  push:
+    branches: [main]
+    paths: [".github/project.yml", "scripts/project-sync.sh"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview changes without applying"
+        type: boolean
+        default: false
+
+permissions:
+  issues: write        # labels + milestones via the default token
+  contents: read
+
+concurrency:
+  group: project-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconcile PM objects
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PROJECT_ADMIN_TOKEN: ${{ secrets.PROJECT_ADMIN_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          bash scripts/project-sync.sh ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}

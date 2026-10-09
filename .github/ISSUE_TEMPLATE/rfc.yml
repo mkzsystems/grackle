@@ -1,0 +1,36 @@
+# pm-framework v1.0
+name: RFC
+description: Request for comments on a public contract (schema, wire protocol, API).
+title: "[RFC] "
+labels: ["rfc", "status: under-discussion", "needs-triage"]
+# An RFC is a Feature/Task carrying the `rfc` label, reserved for public contracts once
+# they freeze — not a distinct kind of work. Org edition: set the "Feature" or "Task"
+# issue type in the sidebar.
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: The public contract being proposed or changed, in one paragraph.
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why this contract needs to exist / change now.
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Detailed design
+      description: The proposed contract in full — fields, semantics, compatibility.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
