@@ -5,8 +5,8 @@ Drafted 9 October 2026 from [`DESIGN.md`](DESIGN.md) and
 there; this document is the delivery plan: what ships in which milestone, the issue index with its
 board order, the architecture for the first milestone at the level an execution session needs, the
 CI gates, the test strategy, the deferred items and the decisions John confirms before the first
-issue starts. It is written to the recommendations in bold in section 11; any other answer changes
-the named issues only.
+issue starts. John approved it on 9 October 2026 as written, with every recommendation in bold in
+section 11 taken.
 
 A ⚑ marks a deviation from, or an addition to, the task spec or `CLAUDE.md`.
 
@@ -423,7 +423,7 @@ the rendered board checked against golden JSON and a few HTML assertions.
 | `docs/DESIGN.md` | unchanged; the design stands. Its "still to do: write the org names and the allowlist into the config" is done by 3.7 and the README |
 | `docs/tasks/01-sync-and-board.md` | criteria ticked by the PR that satisfies each; the "Done when" reading of section 1 noted at the top |
 | `docs/tasks/02-…`, `docs/tasks/03-…` | 1.12 |
-| `docs/adr/0001`, `docs/adr/0002` | this PR, *Proposed*; *Accepted* on approval |
+| `docs/adr/0001`, `docs/adr/0002` | this PR, *Accepted* on approval (John, 9 October 2026) |
 | `docs/project-management.md` | 1.1, from the framework's org edition, with the state and size labels explained |
 | `docs/releasing.md` | 1.11, from gravel's |
 | `CHANGELOG.md` | 1.1, Keep a Changelog, `[Unreleased]` from then on, one entry per closed issue |
@@ -496,9 +496,9 @@ Filed on approval as `backlog` with their eventual milestone, so nothing lives i
 7. **A second tool called grackle.** John's own `jomkz/grackle` (2019, a tweet ingester) and
    `jomkz/grackle-operator` sit in `gh` search results beside this one. Section 11.
 
-## 11. Decisions John confirms before execution starts
+## 11. Decisions John confirmed before execution started
 
-The plan is written to the recommendation in bold; any other answer changes the named issues only.
+Approved as recommended (John, 9 October 2026): every bold entry below is the decision.
 
 | Decision | Recommendation | Alternative | Changes |
 | --- | --- | --- | --- |
