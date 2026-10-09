@@ -295,6 +295,10 @@ Commands (`cobra`), global flag `--config` (default `./grackle.yaml`, env `GRACK
 
 ## 4. Milestones, epics and issues
 
+**Filed 9 October 2026** on the [Grackle 1.0 board](https://github.com/orgs/mkzsystems/projects/14):
+epics #2 (M1.0), #3 (M2.0), #4 (M3.0); issues 1.1–1.12 are #5–#16 in order (1.1 = #5 … 1.12 = #16);
+the section 8 follow-ons are #17–#26, labelled `backlog`.
+
 Three epics, one per milestone. *Order* follows the board convention `rank × 100 + position`, the
 epic at `rank × 100 − 50`; *Effort* uses the framework's `XS`–`XL`. The component is the PR
 title's scope and the `component:` label. Acceptance criteria are the issue body; this table is the
@@ -430,7 +434,8 @@ the rendered board checked against golden JSON and a few HTML assertions.
 
 ## 8. Deferred items and follow-on issues
 
-Filed on approval as `backlog` with their eventual milestone, so nothing lives in a TODO file:
+Filed on approval as `backlog` with their eventual home named in the body (#17–#26), so nothing lives in
+a TODO file:
 
 - **Webhooks** (design: "optional"): a `grackle serve` endpoint for `issues`, `pull_request` and
   `milestone` events, needs a public URL; polling covers the MVP.
