@@ -1,0 +1,23 @@
+# Binaries and test output
+*.exe
+*.test
+*.out
+coverage.*
+
+# Go workspace files
+go.work
+go.work.sum
+
+# env files
+.env
+
+# grackle
+/.bin/
+/dist/
+# A local config and store: grackle.yaml names your orgs and the database holds issue bodies
+# from private repos.
+grackle.yaml
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
